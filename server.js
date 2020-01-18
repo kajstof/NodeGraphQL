@@ -119,6 +119,18 @@ const RootMutationType = new GraphQLObjectType({
         books.push(book)
         return book
       }
+    },
+    addAuthor: {
+      type: AuthorType,
+      description: 'Add an author',
+      args: {
+        name: { type: GraphQLNonNull(GraphQLString) }
+      },
+      resolve: (parent, args) => {
+        const author = { id: authors.length + 1, name: args.name }
+        authors.push(author)
+        return author
+      }
     }
   })
 })
@@ -170,6 +182,13 @@ app.listen(5000, () => console.log('Server Running'))
 
 // mutation {
 //   addBook(name: "New Name", authorId: 1){
+//     id
+//     name
+//   }
+// }
+
+// mutation {
+//   addAuthor(name: "New Author"){
 //     id
 //     name
 //   }
