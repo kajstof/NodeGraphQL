@@ -74,10 +74,26 @@ const RootQueryType = new GraphQLObjectType({
   name: 'Query',
   description: 'Root Query',
   fields: () => ({
+    book: {
+      type: BookType,
+      description: 'A single Book',
+      args: {
+        id: { type: GraphQLInt }
+      },
+      resolve: (parent, args) => books.find(book => book.id === args.id)
+    },
     books: { 
       type: new GraphQLList(BookType),
       description: 'List of All Books',
       resolve: () => books
+    },
+    author: {
+      type: AuthorType,
+      description: 'A single Author',
+      args: {
+        id: { type: GraphQLInt }
+      },
+      resolve: (parent, args) => authors.find(author => author.id === args.id)
     },
     authors: {
       type: new GraphQLList(AuthorType),
@@ -96,3 +112,32 @@ app.use('/graphql', expressGraphQL({
   graphiql: true,
 }))
 app.listen(5000, () => console.log('Server Running'))
+
+// query {
+//   books {
+//     name
+//     author {
+//       name
+//     }
+//   }
+// }
+
+// query {
+//   authors { 
+//     id
+//     name
+//     books {
+//       name
+//     }
+//   }
+// }
+
+// query {
+//   book(id: 1) {
+//     name
+//     author {
+//       name
+//     }
+//   }
+// }
+
