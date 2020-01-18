@@ -1,11 +1,11 @@
-const express = require('express');
-const expressGraphQL = require('express-graphql');
+const express = require('express')
+const expressGraphQL = require('express-graphql')
 const {
   GraphQLSchema,
   GraphQLObjectType,
-  GraphQLString,
-} = require('graphql');
-const app = express();
+  GraphQLString
+} = require('graphql')
+const app = express()
 
 const authors = [
   { id: 1, name: 'J. K. Rowling' },
@@ -40,4 +40,4 @@ app.use('/graphql', expressGraphQL({
   schema: schema,
   graphiql: true,
 }))
-app.listen(5000, () => console.log('Server Running'));
+app.listen(5000, () => console.log('Server Running'))
